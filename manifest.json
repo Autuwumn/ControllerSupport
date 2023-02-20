@@ -1,0 +1,9 @@
+{
+    "name": "ControllerSupport",
+    "version_number": "1.0.1",
+    "website_url": "",
+    "description": "Helps controllers do stuff",
+    "dependencies": [
+        "willis81808-UnboundLib-3.2.6"
+    ]
+}
