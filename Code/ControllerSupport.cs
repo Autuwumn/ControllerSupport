@@ -14,6 +14,7 @@ using UnityEngine.UI;
 using System.Runtime.InteropServices;
 using Photon.Pun.Demo.Procedural;
 using ControllerSupport;
+using ControllerSupport.Utils;
 
 namespace CursorControl
 {
@@ -29,7 +30,7 @@ namespace CursorControl
         public const string Version = "1.0.2";
         
         public static ControllerSupport instance { get; private set; }
-
+        private GameObject move;
         public void Awake()
         {
             instance = this;
@@ -37,11 +38,24 @@ namespace CursorControl
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
         }
+        private void SetupSupport()
+        {
+            if(!move)
+            {
+                move = new GameObject();
+                move.name = "MoveBitch";
+                move.AddComponent<MoveBitchGetOutTheWay>();
+            }
+        }
         public void Start()
         {
-            GameObject move = new GameObject();
-            move.name = "MoveBitch";
-            move.AddComponent<MoveBitchGetOutTheWay>();
+            SetupSupport();
+        }
+
+        public IEnumerator GameStart(IGameModeHandler gameModeHandler)
+        {
+            SetupSupport();
+            yield break;
         }
     }
 }
