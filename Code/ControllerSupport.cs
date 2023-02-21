@@ -26,7 +26,7 @@ namespace CursorControl
         public const string ModInitials = "CS";
         private const string ModId = "koala.controller.support";
         private const string ModName = "Controller Support";
-        public const string Version = "1.1.0";
+        public const string Version = "1.0.2";
         
         public static ControllerSupport instance { get; private set; }
 
@@ -37,22 +37,11 @@ namespace CursorControl
             var harmony = new Harmony(ModId);
             harmony.PatchAll();
         }
-
-        private IEnumerator GameStart(IGameModeHandler gameModeHandler)
-        {
-
-            yield break;
-        }
         public void Start()
         {
             GameObject move = new GameObject();
             move.name = "MoveBitch";
             move.AddComponent<MoveBitchGetOutTheWay>();
-        }
-
-        public void Update()
-        {
-
         }
     }
 }

@@ -34,7 +34,7 @@ namespace CursorControl
         private Player getLocalPlayer()
         {
             Player player = null;
-            PlayerManager.instance.players.ForEach(p => { if (p.data.view.IsMine) player = p; });
+            PlayerManager.instance.players.ForEach(p => { if (!p.data.view.IsMine && !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(player.data).isAIMinion) player = p; });
             return player;
         }
         public void Update()
@@ -52,7 +52,7 @@ namespace CursorControl
                     {
                         xdmp = (int)(10 * Input.GetAxis("Horizontal"));
                         ydmp = (int)(-10 * Input.GetAxis("Vertical"));
-                    }
+                    }   
                     MousePosition mp;
                     GetCursorPos(out mp);
                     if (Input.GetKeyDown(KeyCode.JoystickButton3)) if (moveCursor) moveCursor = false; else moveCursor = true;
