@@ -1,6 +1,6 @@
 {
     "name": "ControllerSupport",
-    "version_number": "1.0.3",
+    "version_number": "1.0.4",
     "website_url": "",
     "description": "Helps controllers do stuff",
     "dependencies": [
