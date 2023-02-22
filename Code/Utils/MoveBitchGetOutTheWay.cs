@@ -7,12 +7,14 @@ using UnboundLib.Utils.UI;
 using System.Collections;
 using UnboundLib.GameModes;
 
-namespace CursorControl
+namespace ControllerSupport.Utils
 {
     internal class MoveBitchGetOutTheWay : MonoBehaviour
     {
         private Player player;
         private bool moveCursor = true;
+        private bool guiOpen = false;
+        private bool dpadBlocked = false;
 
         [DllImport("user32.dll")]
         public static extern bool SetCursorPos(int X, int Y);
@@ -31,7 +33,7 @@ namespace CursorControl
         private Player getLocalPlayer()
         {
             Player player = null;
-            PlayerManager.instance.players.ForEach(p => { if (!p.data.view.IsMine && !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(player.data).isAIMinion) player = p; });
+            PlayerManager.instance.players.ForEach(p => { if (p.data.view.IsMine && !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(p.data).isAIMinion) player = p; });
             return player;
         }
         public void Update()
@@ -45,11 +47,6 @@ namespace CursorControl
                     ydmp = 0;
                     xdmp = (int)(10 * player.data.input.aimDirection.x);
                     ydmp = (int)(-10 * player.data.input.aimDirection.y);
-                    if (!player.isActiveAndEnabled)
-                    {
-                        xdmp = (int)(10 * Input.GetAxis("Horizontal"));
-                        ydmp = (int)(-10 * Input.GetAxis("Vertical"));
-                    }   
                     MousePosition mp;
                     GetCursorPos(out mp);
                     if (Input.GetKeyDown(KeyCode.JoystickButton3)) if (moveCursor) moveCursor = false; else moveCursor = true;
@@ -62,10 +59,34 @@ namespace CursorControl
                             MouseManager.MouseEvent(MouseManager.MouseEventFlags.LeftUp);
                         });
                     }
-                    if(player.isActiveAndEnabled)
+                    /**
+                    if (player.isActiveAndEnabled)
                     {
-                        
+                        if (Input.GetAxis("DPadVertical") == 1 && !dpadBlocked)
+                        {
+                            dpadBlocked = true;
+                            if (!guiOpen)
+                            {
+                                GuiManager.OpenGuis();
+                                guiOpen = true;
+                            }
+                            else
+                            {
+                                GuiManager.CloseGuis();
+                                guiOpen = false;
+                            }
+                        }
+                        else if (Input.GetAxis("DPadVertical") == 0 && dpadBlocked)
+                        {
+                            dpadBlocked = false;
+                        }
                     }
+                    if (player.data.health <= 0)
+                    {
+                        GuiManager.CloseGuis();
+                        guiOpen = false;
+                    }
+                    **/
                 }
             }
         }

@@ -16,7 +16,7 @@ using Photon.Pun.Demo.Procedural;
 using ControllerSupport;
 using ControllerSupport.Utils;
 
-namespace CursorControl
+namespace ControllerSupport
 {
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInPlugin(ModId, ModName, Version)]
@@ -27,7 +27,7 @@ namespace CursorControl
         public const string ModInitials = "CS";
         private const string ModId = "koala.controller.support";
         private const string ModName = "Controller Support";
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
         
         public static ControllerSupport instance { get; private set; }
         private GameObject move;
