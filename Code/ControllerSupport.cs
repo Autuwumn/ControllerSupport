@@ -27,7 +27,7 @@ namespace ControllerSupport
         public const string ModInitials = "CS";
         private const string ModId = "koala.controller.support";
         private const string ModName = "Controller Support";
-        public const string Version = "1.0.3";
+        public const string Version = "1.0.4";
         
         public static ControllerSupport instance { get; private set; }
         private GameObject move;
@@ -45,6 +45,7 @@ namespace ControllerSupport
                 move = new GameObject();
                 move.name = "MoveBitch";
                 move.AddComponent<MoveBitchGetOutTheWay>();
+                DontDestroyOnLoad(move);
             }
         }
         public void Start()
